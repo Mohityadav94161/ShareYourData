@@ -1,0 +1,202 @@
+/* YourComponent.css */
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+.left-column {
+    width: 230px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.notepad-file-item {
+    border: 3.2px solid #4caf50;
+    border-radius: 8px;
+    padding: 8px;
+    height: 80px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.upload-file-item {
+    border: 3.2px solid #4caf50;
+    border-radius: 8px;
+    padding: 8px;
+    height: 80px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: dashed;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.userPage-inserted-file-data{
+    width: 80px;
+    font-size: 14px;
+}
+.userpage-uploadBtn {
+    margin-top: 8px;
+    border: 3px solid #4caf50;
+    border-radius: 8px;
+    width: 126px;
+
+}
+
+.userpage-sendBtn {
+    margin-top: 8px;
+    border: 2.5px solid #4caf50;
+    border-radius: 8px;
+    width: 6px;
+}
+
+.userpage-input-box {
+    /* margin-top: 12px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border: #4caf50 2.3px solid;
+    background-color: white;
+    height: 29px;
+
+    padding: 3px;
+    border-radius: 4px;
+
+    padding: 4px 7px
+}
+
+.userpage-send-input {
+    height: 27px;
+    background-color: none;
+    border: none;
+    font-size: 14px;
+    outline: none;
+
+}
+
+
+.main-content {
+    /* flex-grow: 1; */
+    overflow: auto;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    /* overflow-y: hidden; */
+}
+
+.section {
+    flex-grow: 1;
+    overflow: auto;
+    margin-bottom: 40px;
+}
+
+.section-header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.files-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.file-item {
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    height: 100px
+}
+
+.file-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.files-container {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    cursor: pointer
+}
+
+
+
+
+
+@media screen and (max-width: 750px) {
+    .userpage-uploadBtn {
+        border: 2px solid #4caf50;
+        border-radius: 6px;
+        font-size: small;
+    }
+}
+
+/* Adjust for mobile devices */
+@media screen and (max-width: 780px) {
+    .userpage-uploadBtn {
+        border: 2.5px solid #4caf50;
+        border-radius: 4px;
+        font-size: 12px;
+    }
+
+    .left-col-row-items {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        align-content: center;
+    }
+
+    .left-column {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        align-content: center;
+        justify-content: space-around;
+        margin-bottom: 8px;
+
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .upload-file-item {
+        margin: 0px;
+        margin-left: 8px;
+        height: 70px;
+        width: 70px;
+    }
+
+    .notepad-file-item {
+        margin: 0px;
+        margin-right: 8px;
+        height: 70px;
+        width: 70px;
+    }
+
+}

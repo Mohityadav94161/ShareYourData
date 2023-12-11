@@ -1,0 +1,33 @@
+{
+  "name": "shareyourdata",
+  "version": "1.0.0",
+  "description": "Anonymously share your data without email and phone no",
+  "main": "index.js",
+  "scripts": {
+    "test": "test index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mohityadav94161/ShareYourData.git"
+  },
+  "author": "Mohit Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mohityadav94161/ShareYourData/issues"
+  },
+  "homepage": "https://github.com/Mohityadav94161/ShareYourData#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cloudinary": "^1.41.0",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "cryptojs": "^2.5.3",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.2.0",
+    "mongoose": "^8.0.0",
+    "multer": "^1.4.5-lts.1"
+  }
+}

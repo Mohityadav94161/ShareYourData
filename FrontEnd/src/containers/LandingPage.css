@@ -1,0 +1,173 @@
+/* LandingPage.css */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.landing-page {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* justify-content: center; */
+    align-items: space-between;
+    margin: 12px;
+
+}
+
+.landing-content {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+
+
+.cards-section {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+
+
+.card {
+    /* border: 2px solid #ccc; */
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    height: 100px;
+    width: 100px;
+    margin-bottom: 8px;
+
+    flex-direction: column;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.left-card {
+    margin-right: 38px;
+    border: 2px solid black;
+    opacity: 1;
+
+}
+
+.right-card {
+    margin-left: 2px;
+
+    border: 2px solid black;
+    border-style: dashed;
+}
+
+
+
+.upload-file {
+    height: 50px;
+}
+
+/* .send-input{
+    width: 400px;
+    margin-right: 8px;
+} */
+
+.instructions {
+    text-align: justify;
+    /* margin-left: 88px; */
+    /* margin-right: 12px; */
+    margin-top: 25px;
+    margin-bottom: 12px;
+    
+   
+}
+
+.input-box {
+    margin-top: 20px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid black;
+    border-radius: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.send-input {
+    height: 23px;
+    margin-right: 6px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+}
+
+.send-btn {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 8px;
+    width: 100px;
+    height: 42px;
+    margin-top: 0px;
+    background-color: white;
+    border: 2px solid green;
+    color: black;
+    font-weight: 600;
+}
+
+button:hover {
+    color: white;
+}
+
+.landing-footer {
+    border-top: 3px solid #ccc;
+    background-color: #f0f0f0;
+    padding: 10px;
+    align-items: baseline;
+    margin-bottom: 0px;
+}
+
+@media screen and (max-width: 750px) {
+    button {
+        /* width: 150px; */
+        font-size: small;
+        padding: 3px;
+        width: 70px;
+        height: 32px;
+    }
+
+    .input-box button {
+        width: 30px;
+        border: none;
+        margin-top: 4px;
+    }
+}
+
+/* Adjust for mobile devices */
+@media screen and (max-width: 480px) {
+    button {
+        /* width: 150px; */
+        padding: 0px;
+        font-size: small;
+        width: 60px;
+        height: 28px;
+    }
+
+    .left-card {
+        margin-right: 8px;
+    }
+
+    .input-box button {
+        width: 30px;
+        border: none;
+        margin-top: 4px;
+    }
+}

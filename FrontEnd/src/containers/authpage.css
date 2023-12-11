@@ -1,0 +1,35 @@
+/* LoginPageTabs.css */
+
+.login-page-tabs {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 28px;
+    min-width: fit-content;
+}
+
+
+.tab-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-content: center;
+    flex-direction: row;
+
+    border-radius: 4px;
+    width: 208px;
+    margin-top: 0px;
+}
+
+.tab-item {
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.tab-item.active {
+    border-bottom: 4px solid black;
+    /* border-radius: 5px; */
+    /* border-style: double; */
+    color: green;
+    /* width: 146px; */
+}

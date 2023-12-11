@@ -1,0 +1,13 @@
+.notepad-card{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+   
+}
+.notepadIcon {
+    height: 50px;
+    
+}

@@ -1,0 +1,135 @@
+.file-container {
+    display: flex;
+    width: 150px;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    margin-left: 15px;
+    cursor: pointer
+}
+
+.file-img-container {
+
+    width: 150px;
+    height: 120px;
+    background: #a7eba830;
+
+    /* border: 2px solid rgb(133, 228, 133); */
+    border-radius: 5px;
+}
+
+.file-img {
+    height: 100px;
+    cursor: pointer;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.file-img-hovered {
+    opacity: 0.4;
+    height: 100px;
+    cursor: pointer;
+    transition: opacity 0.5s ease-in-out;
+}
+
+
+
+.download-img {
+    height: 38px;
+    display: block;
+    position: relative;
+    left: 37.2%;
+    bottom: 60%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.download-img-hovered {
+    opacity: 1;
+    height: 38px;
+    display: block;
+    position: relative;
+    left: 37.2%;
+    bottom: 60%;
+    background-color: white;
+    border-radius: 8px;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.expire-info {
+    font-size: 12px;
+    background-color: #4b4d4b30;
+    padding: 1px;
+    border-radius: 3px;
+}
+
+.file-lock {
+    height: 28px;
+    display: block;
+    position: relative;
+    left: 119px;
+    bottom: 102px;
+}
+
+.file-lock-hovered {
+    background-color: white;
+    border-radius: 4px;
+    height: 28px;
+    display: block;
+    position: relative;
+    left: 119px;
+    bottom: 102px;
+
+}
+
+.file-lock-hovered:hover {
+    border: 0.7px solid black;
+    border-radius: 4px;
+}
+
+.file-details {
+    padding-top: 4px;
+    width: 150px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-content: flex-start;
+
+}
+
+.file-text {
+    font-weight: 300;
+    height: 10px;
+    font-family: math;
+    margin: 0px;
+    padding: 2px;
+    font-size: 15px;
+    overflow-wrap: break-word;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* padding-left: 4px;
+    padding-right: 4px; */
+}
+
+.file-date {
+    padding-right: 2px;
+    font-size: 14px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.file-by {
+    font-size: 14px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.file-size {
+    font-size: 14px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.file-size-data {
+    display: flex;
+    height: 17px;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 150px;
+}

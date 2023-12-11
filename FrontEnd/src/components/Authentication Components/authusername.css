@@ -1,0 +1,74 @@
+/* LoginPage.css */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+}
+
+.login-form {
+    /* border: 2px solid #ccc; */
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    padding: 27px;
+    /* width: auto; */
+}
+
+h2 {
+    margin-top: 12px;
+    margin-bottom: 23px;
+    font-size: xx-large;
+    font-family: serif;
+}
+
+.label-authUser {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    text-transform: math-auto;
+    font-size: x-large;
+    font-family: monospace;
+}
+
+.input {
+
+    /* width: 100%;
+     */
+    margin-bottom: 10px;
+    border: 2px solid black;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 16px;
+    font-family: sans-serif;
+
+}
+
+.authUser-btn {
+    width: 100%;
+    background-color: #67ce6a;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+@media screen and (max-width: 480px) {
+    .authUser-btn {
+        align-self: center;
+        margin-top: 12px;
+        height: 37px;
+        width: 100%;
+        background-color: #4caf50;
+        color: white;
+        padding: 12px;
+        border: none;
+        cursor: pointer;
+    }
+}
