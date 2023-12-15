@@ -7,10 +7,12 @@ export const Notepad = ({Entereddata}) => {
     const [notepadData, setNotepadData] = useState({ name: '', data: '' });
 
     const onNoteSave = (name, data) => {
-        // console.log("direct console " ,name,data);
+        console.log("2. direct console " ,name,data);
         setNotepadData({ name: name, data: data });
+        console.log("3. direct console notepad " ,notepadData)
         Entereddata(notepadData);
     }
+ 
     const notepadRef = useRef();
     const handleDivClick = () => {
         notepadRef.current.click();

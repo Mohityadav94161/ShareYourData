@@ -3,7 +3,7 @@ import React, { useState, forwardRef, useEffect } from 'react';
 import './NotepadCard.css';
 import cross from '../../assets/cross.svg'
 
-const NotepadCard = forwardRef(({  onNoteSave }, ref) => {
+const NotepadCard = forwardRef(({ onNoteSave }, ref) => {
     const [showModal, setShowModal] = useState(false);
     const [note, setNote] = useState('');
     const [tabName, setTabName] = useState('');
@@ -17,14 +17,19 @@ const NotepadCard = forwardRef(({  onNoteSave }, ref) => {
             setIsEmpty(true);
             return;
         }
+        console.log("1. onNoteSave card ", tabName, note);
         onNoteSave(tabName, note);
-        // console.log("onNoteSave ",tabName, note ,res );
+
+
         setIsEmpty(false);
         setOpenOnce(true);
 
         // Close the modal
         setShowModal(false);
 
+    };
+    const handleNoteTabChange = (e) => {
+        setNote(e.target.value);
     };
     const handleOpenOnce = () => {
         if (openOnce) {
@@ -67,12 +72,18 @@ const NotepadCard = forwardRef(({  onNoteSave }, ref) => {
                                 type="text"
                                 placeholder="Title"
                                 value={tabName}
-                                onChange={(e) => setTabName(e.target.value)}
+                                onChange={(e) => {
+                                    setTabName(e.target.value)
+                                    onNoteSave(tabName, note);
+                                }}
                             />
                             <textarea
                                 placeholder="Write your note here..."
                                 value={note}
-                                onChange={(e) => setNote(e.target.value)}
+                                onChange={(e) => {
+                                    setNote(e.target.value)
+                                    onNoteSave(tabName, note);
+                                }}
                                 className={isEmpty ? 'txt-error' : 'notepad-textarea'}
                             />
                             <button onClick={handleSaveNote}>Save</button>

@@ -171,3 +171,14 @@ button:hover {
         margin-top: 4px;
     }
 }
+.landingpg-send-arrow-img{
+    transition: transform 0.4s ease-in-out;
+    cursor: pointer;
+
+}
+.landingpg-send-arrow-img:hover{
+    transform: scale(1.1);
+}
+.landingpg-send-arrow-img-pressed {
+    transform: scale(1);
+}

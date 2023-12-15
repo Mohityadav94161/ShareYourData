@@ -9,6 +9,10 @@ export const File = ({ data }) => {
     const [lockState, setLockState] = useState(data.isLocked);
 
     const [expiryInfo, setExpiryInfo] = useState('');
+    const openLink = () => {
+        const url = data.data.secure_url; // Replace this with your desired URL
+        window.location.href = url;
+    };
     // const [isLocked,setIsLocked] = useState(false);
     useEffect(() => {
         const calculateExpiry = () => {
@@ -63,7 +67,7 @@ export const File = ({ data }) => {
                 : (<div className='file-img-container' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
                     <div className='expire-info'>{expiryInfo}</div>
                     <img className={`${(isHovered) ? 'file-img-hovered' : 'file-img'}`} src={fileIcon} alt='file-img' />
-                    <img className={`${(isHovered) ? 'download-img-hovered' : 'download-img'}`} src={download} alt='download' />
+                    <img onClick ={openLink} className={`${(isHovered) ? 'download-img-hovered' : 'download-img'}`} src={download} alt='download' />
 
                     {/* <img className='file-lock' src={lock} alt='file-lock' /> */}
                 </div>)

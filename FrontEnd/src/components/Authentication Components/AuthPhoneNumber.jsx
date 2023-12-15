@@ -2,34 +2,111 @@
 import React, { useEffect, useState } from 'react';
 import './authPhoneNumber.css';
 import { sendOtp, verifyOtp } from '../../services/api';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const AuthPhoneNumber = ({ title }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [otp, setOtp] = useState('');
     const [isOtpSent, setIsOtpSent] = useState(false);
     const [timer, setTimer] = useState(160);
+    const navigate = useNavigate();
 
-    const handleSendOtp = () => {
+    function isValidPhoneNumber(input) {
+        // Check if the numeric input is exactly 10 digits
+        return /^[0-9]{10}$/.test(input);
+    }
 
-        const res = sendOtp(phoneNumber);
-        console.log("click send otp res ", res)
-        console.log('Sending OTP to:', phoneNumber);
-        setTimer(160);
-        // Update state to show OTP input and button
-        setIsOtpSent(true);
+    const handleSendOtp = async () => {
+        if (isValidPhoneNumber(phoneNumber)) {
+            const id = toast.loading("Please wait...", { position: "top-center" })
+            //do something else
+
+            const res = await sendOtp(phoneNumber);
+
+
+            if (res.status === 200) {
+                toast.update(id, { render: "OTP Sent", type: "success", isLoading: false, autoClose: 3000, position: "top-center", closeOnClick: true, });
+            }
+            else {
+                toast.update(id, { render: "Error in OTP Sent", type: "error", isLoading: false, autoClose: 5000, position: "top-center", closeOnClick: true, });
+            }
+            console.log("click send otp res ", res)
+            console.log('Sending OTP to:', phoneNumber);
+            setTimer(160);
+
+            // Update state to show OTP input and button
+            setIsOtpSent(true);
+        }
+        else {
+            console.log("invalid number")
+            toast.error("Invalid number", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+
+
     };
-    const handleResendOtp = () => {
+    const handleResendOtp = async () => {
         // Add logic to resend OTP
-        
-        const res = sendOtp(phoneNumber)
+        const id = toast.loading("Please wait...")
+        //do something else
+
+        const res = await sendOtp(phoneNumber);
+        if(res.status === 200){
+            toast.update(id, { render: "OTP Re-sent", type: "success", isLoading: false, autoClose: 3000, position: "top-center", closeOnClick: true, });
+        }
+        else{
+            toast.update(id, { render: "Error in OTP Re-sent", type: "error", isLoading: false, autoClose: 5000, position: "top-center", closeOnClick: true, });
+        }
+       
         console.log("click Re-send otp res ", res)
         console.log('Resending OTP to:', phoneNumber);
         setTimer(160); // Reset timer
     };
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         // Add logic to verify the OTP and perform login
-        const res = verifyOtp(phoneNumber, otp);
+        const id = toast.loading("Please wait...");
+        if (otp === '') {
+            toast.warn("Please enter OTP", {
+                position: "top-center",
+                autoClose: 10000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored"
+            })
+            return;
+        }
+
+        const res = await verifyOtp(phoneNumber, otp);
+
+
+        if (res.status === 200) {
+            toast.update(id, {
+                render: "Login success ", type: "success", isLoading: false, position: "top-center",
+                autoClose: 3000, closeOnClick: true,
+            });
+
+            navigate('/home');
+        }
+        else{
+            toast.update(id, {
+                render: res.data, type: "error", isLoading: false, position: "top-center",
+                autoClose: 60000, closeOnClick: true,
+            });
+        }
+
         console.log("click verfy otp res ", res)
         console.log('Logging in with OTP:', otp);
     };

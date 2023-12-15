@@ -3,10 +3,11 @@ const BASE_URL = 'http://localhost:3300'; // Replace with your actual API base U
 
 let authToken = ''; // Variable to store the JWT token
 
+export let isSignIn = false;
+
 // Function to set the JWT token after a successful login
 export const setAuthToken = (token) => {
     authToken = token;
-
 };
 
 // Function to make a generic API request
@@ -35,6 +36,10 @@ const makeRequest = async (url, method = 'GET', data = null) => {
         //     return responseData;
         //     // throw new Error(responseData.message || 'Something went wrong');
         // }
+        if (responseData === 'Token is not valid'){
+            isSignIn = false;
+        }
+
         return res;
 
     } catch (error) {
@@ -58,6 +63,7 @@ export const verifyOtp = async (phoneNumber, otp) => {
     console.log("verifyOtp", response.data.token);
     if (response.status === 200) {
         setAuthToken(response.data.token);
+        isSignIn = true;
         console.log("set the token", authToken);
     }
     // Set JWT token after successful login
@@ -70,6 +76,7 @@ export const loginWithUsername = async (username, password) => {
     const response = await makeRequest('user/login', 'POST', data);
     if (response.status === 200) {
         setAuthToken(response.accessToken);
+        isSignIn = true;
     }
     // Set JWT token after successful login
     console.log("response login with username: " + response);
@@ -122,7 +129,7 @@ export const shareDataToNumber = async (file, notepadData, phonenumber) => {
         const responseData = await response.json();
         console.log('Response data:', responseData);
 
-        return response;
+        return  { status: response.status, data: responseData };;
     } catch (error) {
         console.error('API Error:', error.message);
         throw error;
@@ -147,7 +154,7 @@ export const shareDataToUsername = async (file, notepadData, username) => {
         const responseData = await response.json();
         console.log('Response data:', responseData);
 
-        return response;
+        return {status:response.status,data:responseData};
     } catch (error) {
         console.error('API Error:', error.message);
         throw error;
@@ -168,5 +175,34 @@ export const getNotepad = async () => {
     return response.data;
 }
 
+export const upload = async (file, notepadData) => {
+    const formData = new FormData();
+    formData.append("clipboardData", notepadData.data);
+    formData.append("clipboardName", notepadData.name);
+    formData.append("file", file);
+
+    // console.log(formData);
+    // console.log(notepadData, username, file);
+    const config = {
+        method: 'POST',
+        body: formData,
+    };
+    try {
+        const response = await fetch(`${BASE_URL}/data/uploadToUser`, config);
+        const responseData = await response.json();
+        console.log('Response data:', responseData);
+
+        return response;
+    } catch (error) {
+        console.error('API Error:', error.message);
+        throw error;
+    }
+}
+
+
+export const signOut = ()=>{
+    setAuthToken('');
+    isSignIn = false;  
+}
 
 // Other API functions...

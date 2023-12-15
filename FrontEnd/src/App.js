@@ -1,36 +1,40 @@
 import './App.css';
 import Register from './containers/Register';
-// import AuthUsername from './components/Authentication Components/AuthUsername';
-import AuthPhoneNumber from './components/Authentication Components/AuthPhoneNumber';
+// import AuthPhoneNumber from './components/Authentication Components/AuthPhoneNumber';
 import LoginPage from './containers/LoginPage';
 import AuthPage from './containers/AuthPage';
 import LandingPage from './containers/LandingPage';
-import NotepadCard from './components/Upload file and notepad/NotepadCard';
+// import NotepadCard from './components/Upload file and notepad/NotepadCard';
 import UserPage from './containers/UserPage';
 import { Navbar } from './components/footer and Headers/Navbar';
 import { Footer } from './components/footer and Headers/Footer';
-import AuthUsername from './components/Authentication Components/AuthUsername';
+// import AuthUsername from './components/Authentication Components/AuthUsername';
+import { BrowserRouter } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
-    <div className="App">
-      <Navbar/>
-      {/* <Register /> */}
-      {/* <AuthPhoneNumber />
-      */}
-      <LoginPage />
-      {/* <Register />  */}
-      {/* <AuthPage /> */}
-      
-      {/* <NotepadCard/> */}
+    <BrowserRouter>
+      <div className="App">
+        <Navbar />
+        <ToastContainer className="ToastContainer"  />
+        <Routes>
+          <Route exact path="/" element={<LandingPage />} />
 
-      {/* <AuthPhoneNumber />
-      <AuthUsername/> */}
+          <Route exact path="/home" element={<UserPage />} />
 
-      <UserPage/>
-      <LandingPage />
-      <Footer/>
-    </div>
+          <Route exact path="/register" element={<Register />} />
+
+          <Route exact path="/login" element={<LoginPage />} />
+
+        </Routes>
+
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 

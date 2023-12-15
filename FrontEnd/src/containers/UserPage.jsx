@@ -5,8 +5,10 @@ import FileUpload from '../assets/upload.svg';
 import Send from '../assets/send.svg';
 import { File } from '../components/User files and notepads/File';
 import { NotepadFile } from '../components/User files and notepads/NotepadFile';
-import { shareDataToNumber, shareDataToUsername } from '../services/api';
+import { shareDataToNumber, shareDataToUsername, isSignIn } from '../services/api';
 import { getUserProfileData, getFilesData, getNotepadData, recentFilesData } from '../services/userdata';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const UserPage = () => {
@@ -16,27 +18,97 @@ const UserPage = () => {
     const [fileData, setFileData] = useState([]);
     const [notepadDB, setNotepadDB] = useState([]);
     const [recentFile, setRecentFile] = useState([]);
+    const [isPressed, setIsPressed] = useState(false);
+
+
+    const navigate = useNavigate();
     // data received from Notepad
     const onNoteSave = (data) => {
         setNotepadData(data);
         console.log("notepad data", data);
         // return data;
     }
-    const send = () => {
-
-        if (isValidPhoneNumber(usernameInput)) {
-            console.log('sending data to phonenumber ', notepadData);
-            const res = shareDataToNumber(selectedFile, notepadData, usernameInput);
-            console.log('Sent file:', res);
+    const send = async () => {
+        if (usernameInput.trim().length === 0) {
+            toast.warn("Please enter PhoneNumber or the username", {
+                position: "top-center",
+                autoClose: 600000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            return;
         }
-        else {
-            console.log('sending data to username ');
-            const res = shareDataToUsername(selectedFile, notepadData, usernameInput);
-            console.log('Sent file:', res);
-        }
+        setTimeout(async () => {
+            console.log('Selected file: is', selectedFile);
+
+            if (isValidPhoneNumber(usernameInput) && notEmpty()) {
+                console.log('sending data to phonenumber ');
+                const id = toast.loading("Please wait...", { position: "top-center" })
+
+                const res = await shareDataToNumber(selectedFile, notepadData, usernameInput);
+
+                console.log('Sent file:', res);
+                if (res.status === 200) {
+                    toast.update(id, { render: res.data, type: "success", isLoading: false, autoClose: 3000, position: "top-center", closeOnClick: true, });
+                    setSelectedFile(null);
+                    setNotepadData({ name: '', data: '' });
+                }
+                else {
+                    toast.update(id, { render: res.data, type: "error", isLoading: false, autoClose: 600000, position: "top-center", closeOnClick: true, });
+                }
 
 
+            }
+            else if (notEmpty()) {
+                console.log('sending data to username ');
+                const id = toast.loading("Please wait...", { position: "top-center" })
+
+                const res = await shareDataToUsername(selectedFile, notepadData, usernameInput);
+                console.log('Sent file:', res);
+
+                if (res.status === 200) {
+                    toast.update(id, { render: res.data, type: "success", isLoading: false, autoClose: 3000, position: "top-center", closeOnClick: true, });
+                    setSelectedFile(null);
+                    setNotepadData({ name: '', data: '' });
+                }
+                else {
+                    toast.update(id, { render: res.data, type: "error", isLoading: false, autoClose: 60000, position: "top-center", closeOnClick: true, });
+                }
+                setNotepadData({ name: '', data: '' });
+            }
+            else {
+                toast.warn("Nothing selected and notepad is empty", {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "Light",
+                });
+                console.log('sending data to empty')
+            }
+        }, 1000)
+
+        setIsPressed(true);
+        // Simulate a delay and reset the pressed state after a short duration
+        setTimeout(() => {
+            setIsPressed(false);
+        }, 200);
     }
+
+    const notEmpty = () => {
+        if (selectedFile === null && notepadData.name.length === 0 && notepadData.data.length === 0) {
+            return false;
+        }
+        return true;
+    }
+
     function isValidPhoneNumber(input) {
         // Check if the numeric input is exactly 10 digits
         return /^[0-9]{10}$/.test(input);
@@ -47,17 +119,17 @@ const UserPage = () => {
         return res;
     }
 
-
-
     //upload file handling
     const handleFileChange = (event) => {
         const file = event.target.files[0];
-
         setSelectedFile(file);
         console.log('Selected file:', selectedFile);
     };
 
     useEffect(() => {
+        if (!isSignIn) {
+            navigate('/');
+        }
         const userFile = async () => {
             const res = await getFilesData();
             console.log('get file data:', res);
@@ -123,12 +195,12 @@ const UserPage = () => {
                 <h4 style={{ margin: "6px" }}>OR</h4>
                 <div className="userpage-input-box">
                     <input className='userpage-send-input' type="text" placeholder="Enter number or username" onChange={(e) => { setUsernameInput(e.target.value) }} />
-                    <img onClick={send} src={Send} alt="Arrow Icon" style={{ height: "22px", width: "22px" }} />
+                    <img className={isPressed ? 'userpg-send-arrow-img-pressed' : 'userpg-send-arrow-img'} onClick={send} src={Send} alt="Arrow Icon" style={{ height: "22px", width: "22px" }} />
                 </div>
             </div>
             <div className="main-content">
                 {/* Main Content Goes Here */}
-                <div className="section-header">Recent</div>
+                {/* <div className="section-header">Recent</div>
                 <p className='all-files' style={{ textAlign: "end", color: "blue", cursor: "pointer" }}>more..</p>
                 <div className="section">
                     {recentFile && recentFile.length > 0 ?
@@ -145,7 +217,7 @@ const UserPage = () => {
                             Nothing Here
                         </div>
                     }
-                </div>
+                </div> */}
                 <div className="section-header">Notepad</div>
                 <p className='all-files' style={{ textAlign: "end", color: "blue", cursor: "pointer" }}>more..</p>
                 <div className="section">

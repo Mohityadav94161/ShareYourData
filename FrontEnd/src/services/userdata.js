@@ -3,6 +3,7 @@ import { getUserData, getFiles, getNotepad } from "./api";
 var allData = [];
 // [...new Set(dataArray)];
 export const getUserProfileData = async () => {
+    allData = [];
     var data = await getUserData();
     // console.log("userdata ", data);
     return data;
@@ -10,6 +11,7 @@ export const getUserProfileData = async () => {
 
 export const getFilesData = async () => {
     var files = await getFiles();
+    allData = [];
     // console.log("files data ", files[0].expireDate);
 
     if (files !== 'Token is not valid') {
