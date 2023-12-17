@@ -1,0 +1,69 @@
+import React, { useEffect, useState } from 'react';
+import './user.css';
+import userIcon from '../../assets/user.svg'
+import { getUserData } from '../../services/api';
+import { isSignIn } from '../../services/api';
+import { Navbar } from '../footer and Headers/Navbar';
+
+export const UserInfo = () => {
+    const [userName, setUserName] = useState('');
+    const [createdAt, setCreatedAt] = useState('Nov 23, 2023, 04:03:57 AM');
+    const [lastUpdatedAt, setLastUpdatedAt] = useState('Nov 23, 2023, 04:03:57 AM');
+    const [totalSize, setTotalSize] = useState(0);
+    const [usedSize, setUsedSize] = useState(0);
+    const [noOfFiles, setNoOfFiles] = useState(0);
+    const [noOfNotes, setNoOfNotes] = useState(0);
+    const [allowedNoOfNotes, setAllowedNoOfNotes] = useState(120);
+
+    
+
+
+    useEffect(() => {
+        if (isSignIn) {
+            const profile = async () => {
+                const res = await getUserData();
+                console.log('Got profile data:', res);
+                setUserName(res.phoneNumber.length ===10?res.phoneNumber:res.username);
+                setCreatedAt(new Date(res.createdAt).toLocaleDateString('en-US', options));
+                setLastUpdatedAt(new Date(res.updatedAt).toLocaleDateString('en-US', options));
+                setTotalSize(res.allowedSize);
+                setUsedSize(0);
+                setNoOfFiles(res.data.files != null ? res.data.files.length : 0);
+                setNoOfNotes(res.data.clipboards != null ? res.data.clipboards.length : 0);
+                setAllowedNoOfNotes(150);
+                return res;
+            }
+            const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            profile();
+            
+        }
+
+
+    }, [])
+
+    return (
+        <div>
+            <Navbar/>
+            <div className="user-page">
+                <div className="user-icon">
+                    {/* Replace the URL with the path to your user icon */}
+                    <img src={userIcon} alt="User Icon" />
+                    <h2>{userName}</h2>
+                    <p> <strong>Total Size: </strong>{(totalSize/1024)/1024} <strong>MB</strong> </p>
+                    <p> <strong>Used Size: </strong>{usedSize}  <strong>MB</strong></p>
+                    
+                </div>
+                <div className="user-details">
+
+                    
+                    <p><strong>No. of Files: </strong>{noOfFiles} </p>
+                    <p><strong>No. of Notes: </strong>{noOfNotes} </p>
+                    <p><strong>Allowed no. of Notes: </strong>{allowedNoOfNotes} </p>
+                    <p><strong>Created on: </strong> {createdAt}</p>
+                    <p><strong>last Update: </strong>{lastUpdatedAt}</p>
+                </div>
+            </div>
+        </div>
+    )
+}
+

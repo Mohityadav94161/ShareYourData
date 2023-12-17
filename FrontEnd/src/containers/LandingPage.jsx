@@ -8,6 +8,8 @@ import { Notepad } from '../components/Upload file and notepad/Notepad';
 // import NotepadCard from '../components/NotepadCard';
 import { shareDataToNumber, shareDataToUsername } from '../services/api';
 import { toast } from 'react-toastify';
+import { Navbar } from '../components/footer and Headers/Navbar';
+import {UserInfo} from '../components/User/UserInfo'
 
 const LandingPage = () => {
     const [notepadData, setNotepadData] = useState({ name: '', data: '' });
@@ -123,7 +125,8 @@ const LandingPage = () => {
 
     return (
         <div>
-
+            <Navbar/>
+            <UserInfo/>
             <div className="landing-page">
                 <section className="landing-content">
                     <div className='instructions'>

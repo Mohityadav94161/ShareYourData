@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './authpage.css';
 import AuthPhoneNumber from '../components/Authentication Components/AuthPhoneNumber';
 import AuthUsername from '../components/Authentication Components/AuthUsername';
+import { Navbar } from '../components/footer and Headers/Navbar';
 
 
 const AuthPage = ({ title }) => {
@@ -13,6 +14,8 @@ const AuthPage = ({ title }) => {
   };
 
   return (
+    < div style={{ minHeight: '100vh' }}>
+    <Navbar/>
     <div className="login-page-tabs">
       <h2>{title}</h2>
       <div className="tab-header">
@@ -33,6 +36,7 @@ const AuthPage = ({ title }) => {
         {activeTab === 'phone' ? <AuthPhoneNumber title={title} /> : null}
         {activeTab === 'username' ? <AuthUsername title={title} /> : null}
       </div>
+    </div>
     </div>
   );
 };

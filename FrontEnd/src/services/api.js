@@ -8,7 +8,16 @@ export let isSignIn = false;
 // Function to set the JWT token after a successful login
 export const setAuthToken = (token) => {
     authToken = token;
+
 };
+// const setIsSignIn = (value) => {
+//     isSignIn = value;
+// };
+
+// export const isUserSignIn = ()=>{
+//     return isSignIn;
+// }
+
 
 // Function to make a generic API request
 const makeRequest = async (url, method = 'GET', data = null) => {
@@ -64,6 +73,7 @@ export const verifyOtp = async (phoneNumber, otp) => {
     if (response.status === 200) {
         setAuthToken(response.data.token);
         isSignIn = true;
+        console.log('isSignIn', isSignIn);
         console.log("set the token", authToken);
     }
     // Set JWT token after successful login
@@ -77,6 +87,7 @@ export const loginWithUsername = async (username, password) => {
     if (response.status === 200) {
         setAuthToken(response.accessToken);
         isSignIn = true;
+        
     }
     // Set JWT token after successful login
     console.log("response login with username: " + response);
@@ -201,8 +212,8 @@ export const upload = async (file, notepadData) => {
 
 
 export const signOut = ()=>{
-    setAuthToken('');
-    isSignIn = false;  
+    isSignIn = false;
+    authToken = '';
 }
 
 // Other API functions...

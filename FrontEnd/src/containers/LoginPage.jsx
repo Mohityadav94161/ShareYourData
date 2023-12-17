@@ -4,7 +4,7 @@ import AuthPage from './AuthPage';
 
 const LoginPage = props => {
   return (
-    <div>
+    <div className='login-page-style' style={{minHeight:'85vh'}}>
         <AuthPage title = "Login"/>
     </div>
   )

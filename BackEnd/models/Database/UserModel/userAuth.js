@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema(
             files: [{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: File
+                
             }],
             folders: [{
                 type: mongoose.Schema.Types.ObjectId,

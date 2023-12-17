@@ -4,6 +4,7 @@ import './authPhoneNumber.css';
 import { sendOtp, verifyOtp } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { Navbar } from '../footer and Headers/Navbar';
 
 const AuthPhoneNumber = ({ title }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -17,7 +18,8 @@ const AuthPhoneNumber = ({ title }) => {
         return /^[0-9]{10}$/.test(input);
     }
 
-    const handleSendOtp = async () => {
+    const handleSendOtp = async (e) => {
+        e.preventDefault();
         if (isValidPhoneNumber(phoneNumber)) {
             const id = toast.loading("Please wait...", { position: "top-center" })
             //do something else
@@ -54,25 +56,27 @@ const AuthPhoneNumber = ({ title }) => {
 
 
     };
-    const handleResendOtp = async () => {
+    const handleResendOtp = async (e) => {
+        e.preventDefault();
         // Add logic to resend OTP
         const id = toast.loading("Please wait...")
         //do something else
 
         const res = await sendOtp(phoneNumber);
-        if(res.status === 200){
+        if (res.status === 200) {
             toast.update(id, { render: "OTP Re-sent", type: "success", isLoading: false, autoClose: 3000, position: "top-center", closeOnClick: true, });
         }
-        else{
+        else {
             toast.update(id, { render: "Error in OTP Re-sent", type: "error", isLoading: false, autoClose: 5000, position: "top-center", closeOnClick: true, });
         }
-       
+
         console.log("click Re-send otp res ", res)
         console.log('Resending OTP to:', phoneNumber);
         setTimer(160); // Reset timer
     };
 
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
         // Add logic to verify the OTP and perform login
         const id = toast.loading("Please wait...");
         if (otp === '') {
@@ -88,10 +92,7 @@ const AuthPhoneNumber = ({ title }) => {
             })
             return;
         }
-
         const res = await verifyOtp(phoneNumber, otp);
-
-
         if (res.status === 200) {
             toast.update(id, {
                 render: "Login success ", type: "success", isLoading: false, position: "top-center",
@@ -100,7 +101,7 @@ const AuthPhoneNumber = ({ title }) => {
 
             navigate('/home');
         }
-        else{
+        else {
             toast.update(id, {
                 render: res.data, type: "error", isLoading: false, position: "top-center",
                 autoClose: 60000, closeOnClick: true,

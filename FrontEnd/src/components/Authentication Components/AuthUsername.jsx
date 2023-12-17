@@ -10,7 +10,8 @@ const AuthUsername = ({ title }) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     // Add your login logic here
     if (title === "Login") {
       const id = toast.loading("Please wait...", { position: "top-center" })
@@ -33,15 +34,15 @@ const AuthUsername = ({ title }) => {
       const res = await registerWithUsername(username, password);
       if (res.status === 200) {
         toast.update(id, { render: "User created successfully , redirecting to Login page", type: "success", isLoading: false, autoClose: 5000, position: "top-center", closeOnClick: true, });
-        
+        setTimeout(() => {
+          navigate('/login');
+        }, 4500)
       }
       else {
         toast.update(id, { render: res.data, type: "error", isLoading: false, autoClose: 30000, position: "top-center", closeOnClick: true, });
       }
 
-      setTimeout(() => {
-        navigate('/login');
-      }, 4500)
+
 
       console.log("click register with username ", res);
     }

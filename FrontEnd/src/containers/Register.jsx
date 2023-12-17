@@ -5,7 +5,7 @@ import AuthPage from './AuthPage';
 function Register() {
   return (
     <div>
-       <AuthPage title="Register"/>
+      <AuthPage title="Register" style={{ minHeight: '85vh' }} />
     </div>
   )
 }

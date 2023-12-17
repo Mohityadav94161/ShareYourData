@@ -1,0 +1,58 @@
+.user-page {
+    display: flex;
+    margin: 25px;
+    min-height: 100vh;
+}
+
+.user-icon {
+    /* margin-right: 80px; */
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    min-width: 30%;
+    align-items: start;
+}
+
+.user-icon img {
+    width: 100px;
+    /* Adjust the size as needed */
+    height: 100px;
+    /* Adjust the size as needed */
+    border-radius: 50%;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    min-width: 50%;
+    text-align: start;
+    padding: 30px;
+    /* min-width: 50%; */
+}
+
+.user-details h1 {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+    .user-page {
+        flex-direction: column;
+        align-items: center;
+        margin: 0px;
+    }
+
+    .user-icon {
+        margin-bottom: 0;
+        margin-right: 0;
+        padding: 8px;
+        min-width: none;
+        text-align: center;
+        /* Remove margin at the bottom for mobile view */
+    }
+
+    .user-details {
+        text-align: center;
+        padding: 8px;
+        min-width: none;
+    }
+}
