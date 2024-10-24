@@ -1,6 +1,8 @@
 /* NotepadCard.css */
 .notepad-card {
     text-align: center;
+    display: flex;
+    flex-direction: column;
 
 }
 
@@ -80,6 +82,13 @@
     }
 }
 
+/* button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+} */
 
 @media screen and (max-width: 400px) {
     .modal-content {

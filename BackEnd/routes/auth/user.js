@@ -85,7 +85,7 @@ Router.post('/verifyOtp', async (req, res) => {
 
     try {
         //find otp schema with phone number .... phone number is stored in encrypted format
-        console.log(req);
+       
         const user = await User.findOne({
             phoneNumber: inputPhoneNumber,
         });
@@ -110,8 +110,6 @@ Router.post('/verifyOtp', async (req, res) => {
                 process.env.JWT_secKey,
                 { expiresIn: "1d" }
             );
-
-
 
             res.status(200).json({ "token": accessToken });
         }

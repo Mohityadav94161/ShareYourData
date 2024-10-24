@@ -1,18 +1,20 @@
-import { getUserData, getFiles, getNotepad } from "./api";
+import { getUserData, getFiles, getNotepad, authenticationToken } from "./api";
+
 
 var allData = [];
-// [...new Set(dataArray)];
+
 export const getUserProfileData = async () => {
+    const { token } = authenticationToken
     allData = [];
-    var data = await getUserData();
-    // console.log("userdata ", data);
+    var data = await getUserData(token);
+
     return data;
 }
 
 export const getFilesData = async () => {
-    var files = await getFiles();
+    const { token } = authenticationToken
+    var files = await getFiles(token);
     allData = [];
-    // console.log("files data ", files[0].expireDate);
 
     if (files !== 'Token is not valid') {
         for (var i = 0; i < files.length; i++) {
@@ -28,12 +30,12 @@ export const getFilesData = async () => {
         }
         return files.reverse();
     }
-
 }
 
 export const getNotepadData = async () => {
-    var files = await getNotepad();
-    // console.log("notepad data ", files);
+    const { token } = authenticationToken
+    var files = await getNotepad(token);
+
     if (files !== 'Token is not valid') {
         for (var i = 0; i < files.length; i++) {
             let file = files[i];
@@ -47,18 +49,4 @@ export const getNotepadData = async () => {
         }
         return files.reverse();
     }
-
 }
-
-export const recentFilesData = async () => {
-    // allData.sort((file1, file2) => {
-    //     return file1.createdAt
-    //         - file2.createdAt
-    //         ;
-    // })
-    allData.sort((a, b) => (a.createdAt) - (b.createdAt));
-    
-    return allData;
-}
-
-

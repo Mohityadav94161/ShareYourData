@@ -17,7 +17,6 @@ const NotepadCard = forwardRef(({ name, detail }, ref) => {
             setIsEmpty(true);
             return;
         }
-        // console.log("onNoteSave ",tabName, note ,res );
         setIsEmpty(false);
         setOpenOnce(true);
 

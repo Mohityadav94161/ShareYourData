@@ -44,16 +44,7 @@ const NotepadCard = forwardRef(({ onNoteSave }, ref) => {
         console.log('closed', showModal);
     }
 
-    // useEffect(() => {
-
-    //     if (name !== null) {
-    //         setTabName(name);
-    //     }
-    //     if (detail !== null) {
-    //         setNote(detail);
-    //     }
-
-    // }, [name, detail]);
+   
 
     return (
         <div onClick={handleOpenOnce} ref={ref}>

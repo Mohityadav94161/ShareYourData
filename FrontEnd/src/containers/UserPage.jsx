@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import { Navbar } from '../components/footer and Headers/Navbar';
 
 
+
 const UserPage = () => {
     const [notepadData, setNotepadData] = useState({ name: '', data: '' });
     const [selectedFile, setSelectedFile] = useState(null);
@@ -136,39 +137,45 @@ const UserPage = () => {
             navigate('/');
         }
         const userFile = async () => {
-            const res = await getFilesData();
-            console.log('get file data:', res);
-            if (res !== 'Token is not valid') {
-                setFileData(res);
-                console.log('Set file data:', fileData);
+            if (isSignIn) {
+                const res = await getFilesData();
+                console.log('get file data:', res);
+                if (res !== 'Token is not valid') {
+                    setFileData(res);
+                    console.log('Set file data:', fileData);
+                }
             }
         }
         const userNotes = async () => {
-            const res = await getNotepadData();
-            console.log('get notepad data:', res);
-            if (res !== 'Token is not valid') {
-                setNotepadDB(res);
-                console.log('set notepad data:', notepadDB);
+            if (isSignIn) {
+                const res = await getNotepadData();
+                console.log('get notepad data:', res);
+                if (res !== 'Token is not valid') {
+                    setNotepadDB(res);
+                    console.log('set notepad data:', notepadDB);
+                }
+                // return res;
             }
-            return res;
+
         }
-        const recentFiles = async () => {
-            const res = await (recentFilesData());
-            console.log('recent files:', res)
-            if (res !== 'Token is not valid') {
-                setRecentFile(res);
-                console.log('set recent data:', recentFile);
-            }
-            return res;
-        }
+        // const recentFiles = async () => {
+        //     const res = await (recentFilesData());
+        //     console.log('recent files:', res)
+        //     if (res !== 'Token is not valid') {
+        //         setRecentFile(res);
+        //         console.log('set recent data:', recentFile);
+        //     }
+        //     return res;
+        // }
         userFile();
         userNotes();
-        recentFiles();
+        // recentFiles();
     }, [])
 
     return (
         <>
-            <Navbar />
+            <Navbar  />
+
             <div className="container">
                 <div className="left-column">
                     {/* Left Column Content Goes Here */}

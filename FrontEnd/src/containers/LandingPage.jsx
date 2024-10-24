@@ -118,15 +118,15 @@ const LandingPage = () => {
         return /^[0-9]{10}$/.test(input);
     }
 
-    useEffect(() => {
-        console.log('selected file ', selectedFile);
-        console.log('data ', notepadData);
-    }, [selectedFile, notepadData])
+    // useEffect(() => {
+    //     console.log('selected file ', selectedFile);
+    //     console.log('data ', notepadData);
+    // }, [selectedFile, notepadData])
 
     return (
         <div>
             <Navbar/>
-            <UserInfo/>
+          
             <div className="landing-page">
                 <section className="landing-content">
                     <div className='instructions'>

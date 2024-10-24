@@ -1,0 +1,86 @@
+:root {
+    --color-background: #f0f0f0;
+    --color-primary: #3498db;
+    --color-secondary: #2ecc71;
+    --color-hover: #2980b9;
+    --color-focus: #8e44ad;
+    --color-clicked: #e74c3c;
+    --color-text: #333;
+    --color-success: #27ae60;
+    --color-error: #e74c3c;
+    --font-size-default: 16px;
+    --font-size-large: 24px;
+
+    
+    --color-danger: #dc3545;
+    --color-warning: #ffc107;
+    --color-info: #17a2b8;
+    --color-light: #f8f9fa;
+    --color-dark: #343a40;
+
+    --hover-primary: #0056b3;
+    --hover-secondary: #5a6268;
+    --hover-success: #218838;
+    --hover-danger: #c82333;
+    --hover-warning: #e0a800;
+    --hover-info: #138496;
+    --hover-light: #dae0e5;
+    --hover-dark: #1d2124;
+
+    --click-primary: #004085;
+    --click-secondary: #4e555b;
+    --click-success: #1e7e34;
+    --click-danger: #bd2130;
+    --click-warning: #d39e00;
+    --click-info: #117a8b;
+    --click-light: #c6c8ca;
+    --click-dark: #171a1d;
+
+    --background-color: #ffffff;
+    --border-color: #dee2e6;
+    --active-color: #495057;
+}
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-size: var(--font-size-default);
+}
+
+button {
+    background-color: var(--color-primary);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--color-hover);
+}
+
+button:focus {
+    background-color: var(--color-focus);
+}
+
+button:active {
+    background-color: var(--color-clicked);
+}
+
+input {
+    border: 1px solid var(--color-primary);
+    padding: 10px;
+    font-size: var(--font-size-default);
+}
+
+input:focus {
+    border-color: var(--color-focus);
+}
+
+.toast-success {
+    background-color: var(--color-success);
+}
+
+.toast-error {
+    background-color: var(--color-error);
+}

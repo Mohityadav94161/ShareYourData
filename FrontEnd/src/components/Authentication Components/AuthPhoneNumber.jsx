@@ -10,7 +10,7 @@ const AuthPhoneNumber = ({ title }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [otp, setOtp] = useState('');
     const [isOtpSent, setIsOtpSent] = useState(false);
-    const [timer, setTimer] = useState(160);
+    const [timer, setTimer] = useState(100);
     const navigate = useNavigate();
 
     function isValidPhoneNumber(input) {
@@ -29,16 +29,17 @@ const AuthPhoneNumber = ({ title }) => {
 
             if (res.status === 200) {
                 toast.update(id, { render: "OTP Sent", type: "success", isLoading: false, autoClose: 3000, position: "top-center", closeOnClick: true, });
+                setIsOtpSent(true);
             }
             else {
-                toast.update(id, { render: "Error in OTP Sent", type: "error", isLoading: false, autoClose: 5000, position: "top-center", closeOnClick: true, });
+                toast.update(id, { render: "Error in sending OTP", type: "error", isLoading: false, autoClose: 5000, position: "top-center", closeOnClick: true, });
             }
-            console.log("click send otp res ", res)
-            console.log('Sending OTP to:', phoneNumber);
+            // console.log("click send otp res ", res)
+            // console.log('Sending OTP to:', phoneNumber);
             setTimer(160);
 
             // Update state to show OTP input and button
-            setIsOtpSent(true);
+
         }
         else {
             console.log("invalid number")
@@ -72,7 +73,7 @@ const AuthPhoneNumber = ({ title }) => {
 
         console.log("click Re-send otp res ", res)
         console.log('Resending OTP to:', phoneNumber);
-        setTimer(160); // Reset timer
+        setTimer(100); // Reset timer
     };
 
     const handleLogin = async (e) => {
@@ -108,8 +109,8 @@ const AuthPhoneNumber = ({ title }) => {
             });
         }
 
-        console.log("click verfy otp res ", res)
-        console.log('Logging in with OTP:', otp);
+        // console.log("click verfy otp res ", res)
+        // console.log('Logging in with OTP:', otp);
     };
 
     useEffect(() => {

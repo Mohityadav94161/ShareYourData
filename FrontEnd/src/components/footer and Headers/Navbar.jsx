@@ -1,17 +1,19 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState, useEffect,useContext } from 'react'
 import './navbar.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { signOut, isSignIn } from '../../services/api'
 import userIcon from '../../assets/user.svg'
-import logo from '../../assets/newlogo2.svg'
+import logo from '../../assets/logo.svg'
+import { AuthContext } from '../../AuthContext'
 
 export const Navbar = () => {
     const [userSignIn, setUserSignIn] = useState(isSignIn);
     const navigate = useNavigate();
 
+    const { logout } = useContext(AuthContext);
+
     const handleSignOut = (e) => {
-        e.preventDefault();
-        signOut();
+        logout()
     }
     const handleUserInfo = (e) => {
         e.preventDefault();

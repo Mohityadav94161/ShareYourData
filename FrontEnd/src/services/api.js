@@ -1,24 +1,42 @@
 // api.js
-const BASE_URL = 'http://localhost:3300'; // Replace with your actual API base URL
-
 let authToken = ''; // Variable to store the JWT token
+let userSignedIn = false;
 
-export let isSignIn = false;
+const BASE_URL = 'http://localhost:3300'; 
+
+export let isSignIn = userSignedIn;
 
 // Function to set the JWT token after a successful login
 export const setAuthToken = (token) => {
     authToken = token;
-
+    userSignedIn = true;
+    isSignIn = true
+    localStorage.setItem('authToken', token);
+    localStorage.setItem('userSignedIn', true);
 };
-// const setIsSignIn = (value) => {
-//     isSignIn = value;
-// };
 
-// export const isUserSignIn = ()=>{
-//     return isSignIn;
-// }
+export const signOut = () => {
+    authToken = '';
+    userSignedIn = false;
+    isSignIn  = false
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userSignedIn');
+};
 
+export const authenticationToken = () => {
+    return authToken   
+}
 
+export const isUserSignedIn = () => {
+    return localStorage.getItem('authToken') !== null;
+};
+
+// Check if user is signed in on load
+if (localStorage.getItem('authToken')) {
+    authToken = localStorage.getItem('authToken');
+    userSignedIn = localStorage.getItem('userSignedIn') === 'true';
+    isSignIn = userSignedIn
+}
 // Function to make a generic API request
 const makeRequest = async (url, method = 'GET', data = null) => {
     const headers = {
@@ -39,14 +57,18 @@ const makeRequest = async (url, method = 'GET', data = null) => {
         const response = await fetch(`${BASE_URL}/${url}`, config);
         const responseData = await response.json();
         // console.log("respose data", responseData);
-        const res = {"status": response.status, "data":responseData}
+        const res = { "status": response.status, "data": responseData }
         // if (!response.ok) {
         //     console.log("error response",response)
         //     return responseData;
         //     // throw new Error(responseData.message || 'Something went wrong');
         // }
-        if (responseData === 'Token is not valid'){
-            isSignIn = false;
+        if (response.status === 401) {
+            signOut();
+        }
+        if (responseData === 'Token is not valid') {
+            userSignedIn = false;
+            isSignIn = false
         }
 
         return res;
@@ -72,8 +94,9 @@ export const verifyOtp = async (phoneNumber, otp) => {
     console.log("verifyOtp", response.data.token);
     if (response.status === 200) {
         setAuthToken(response.data.token);
+        userSignedIn = true;
         isSignIn = true;
-        console.log('isSignIn', isSignIn);
+        console.log('isUserSignedIn', isUserSignedIn);
         console.log("set the token", authToken);
     }
     // Set JWT token after successful login
@@ -86,8 +109,8 @@ export const loginWithUsername = async (username, password) => {
     const response = await makeRequest('user/login', 'POST', data);
     if (response.status === 200) {
         setAuthToken(response.accessToken);
+        userSignedIn = true;
         isSignIn = true;
-        
     }
     // Set JWT token after successful login
     console.log("response login with username: " + response);
@@ -140,7 +163,7 @@ export const shareDataToNumber = async (file, notepadData, phonenumber) => {
         const responseData = await response.json();
         console.log('Response data:', responseData);
 
-        return  { status: response.status, data: responseData };;
+        return { status: response.status, data: responseData };;
     } catch (error) {
         console.error('API Error:', error.message);
         throw error;
@@ -165,27 +188,12 @@ export const shareDataToUsername = async (file, notepadData, username) => {
         const responseData = await response.json();
         console.log('Response data:', responseData);
 
-        return {status:response.status,data:responseData};
+        return { status: response.status, data: responseData };
     } catch (error) {
         console.error('API Error:', error.message);
         throw error;
     }
 };
-
-export const getUserData = async () => {
-    const response = await makeRequest('data/home', 'GET');
-    return response.data;
-}
-
-export const getFiles = async () => {
-    const response = await makeRequest('data/fileData', 'GET');
-    return response.data;
-}
-export const getNotepad = async () => {
-    const response = await makeRequest('data/clipboardData', 'GET');
-    return response.data;
-}
-
 export const upload = async (file, notepadData) => {
     const formData = new FormData();
     formData.append("clipboardData", notepadData.data);
@@ -210,10 +218,38 @@ export const upload = async (file, notepadData) => {
     }
 }
 
+export const uploadFeedback = async (feedbackData) => {
+    const data = { feedbackData }
+    const response = await makeRequest('data/uploadFeedback', 'POST', data);
 
-export const signOut = ()=>{
-    isSignIn = false;
-    authToken = '';
+    console.log("feedback ", response);
+    return response;
 }
 
-// Other API functions...
+export const getUserData = async () => {
+    if (isUserSignedIn) {
+        const response = await makeRequest('data/home', 'GET');
+        console.log("user data ",response)
+        return response.data;
+    }
+    else{
+        return 'you are not logged in';
+    }
+
+}
+
+export const getFiles = async () => {
+    const response = await makeRequest('data/fileData', 'GET');
+    console.log("user file data ", response)
+    return response.data;
+}
+export const getNotepad = async () => {
+    const response = await makeRequest('data/clipboardData', 'GET');
+    console.log("user notepad data ", response)
+    return response.data;
+}
+export const getFeedback = async () => {
+    const response = await makeRequest('data/feedbackData', 'GET');
+    return response;
+}
+

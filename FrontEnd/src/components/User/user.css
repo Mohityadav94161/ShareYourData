@@ -1,5 +1,6 @@
 .user-page {
     display: flex;
+    flex-direction: row;
     margin: 25px;
     min-height: 100vh;
 }

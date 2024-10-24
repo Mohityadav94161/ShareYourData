@@ -1,7 +1,7 @@
 import { React, useRef } from 'react'
 import './footer.css';
-import logo from '../../assets/newlogo2.svg';
-import { FeedbackForm } from './Feedbackform';
+import logo from '../../assets/logo.svg';
+import {FeedbackForm}  from './Feedbackform';
 import feedbackIcon from '../../assets/feedback.svg'
 
 
